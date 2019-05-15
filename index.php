@@ -1,10 +1,9 @@
 <?php 
 	session_start(); 
 
-	if ($_SERVER['SCRIPT_NAME'] != '/prueba1/index.php' && !isset($_SESSION['user'])) {
-	header('Location: index.php'); 
-	} elseif( $_SERVER['SCRIPT_NAME'] == '/prueba1/index.php' && isset($_SESSION['user']) ) {
+	if( $_SERVER['SCRIPT_NAME'] == '/prueba1/index.php' && isset($_SESSION['user']) ) {
 	header('Location: inicio.php'); 
+	exit; 
 	}
 
 
@@ -31,9 +30,11 @@
 				while ($row = $res->fetch_assoc()){
 				$_SESSION['user'] = ['username'=> $row['Usuario'], 'id'=> $row['ID']];
 				//print_r($_SESSION['user']);
-
+					$NombredeUsuario = $row['Usuario'];
+					$NombredeTienda = $row['NomTienda'];
+					$idUsu = $row['ID'];
 		
-				header('Location: inicio.php'); 
+				header("Location: inicio.php?nom=$NombredeUsuario&tien=$NombredeTienda&id=$idUsu"); 
 				exit;
 			}
 
